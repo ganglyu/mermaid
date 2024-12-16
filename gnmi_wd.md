@@ -5,6 +5,7 @@ flowchart
     id_container(Check container Health Status Via Docker inpect and logs)
     style id_container fill:#AF9
     id_ntp(Check NTP sync status)
+    id_yang(Check YANG validation)
     id_gnmi(Check GNMI table)
     id_gnmi_certs(Check certs in GNMI table)
     id_insecure(GNMI insecure mode)
@@ -22,8 +23,10 @@ flowchart
     id_health-->|Start|id_container
     id_container-->|Healthy|id_ntp
     id_container-->|Unhealthy|id_container_not_healthy
-    id_ntp-->|Synced|id_gnmi
+    id_ntp-->|Synced|id_yang
     id_ntp-->|Not Synced|id_container_not_healthy
+    id_yang-->|Pass|id_gnmi
+    id_yang-->|Fail|id_container_not_healthy
     id_gnmi-->|Valid|id_gnmi_certs
     id_gnmi-->|Invalid|id_container_not_healthy
     id_gnmi_certs-->|has no certs in GNMI table|id_insecure
