@@ -14,7 +14,7 @@ flowchart
     id_acl1(Check ACL Rules and IPTables)
     id_endpoint2(Check service Endpoint Reachability)
     id_acl2(Check ACL Rules and IPTables)
-    id_cert_valid(Check certificate Validity if required)
+    id_cert_valid(Check certificate Validity)
     id_container_healthy(Container is healthy)
     style id_container_healthy fill:#AF9
     id_container_not_healthy(Container is not healthy)
