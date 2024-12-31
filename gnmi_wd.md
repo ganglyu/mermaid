@@ -21,17 +21,17 @@ flowchart
     style id_container_not_healthy fill:#F88
 
     id_health-->|Start|id_container
-    id_container-->|Healthy|id_ntp
+    id_container-->|Healthy|id_yang
     id_container-->|Unhealthy|id_container_not_healthy
-    id_ntp-->|Synced|id_yang
-    id_ntp-->|Not Synced|id_container_not_healthy
     id_yang-->|Pass|id_gnmi
     id_yang-->|Fail|id_container_not_healthy
     id_gnmi-->|Valid|id_gnmi_certs
     id_gnmi-->|Invalid|id_container_not_healthy
     id_gnmi_certs-->|has no certs in GNMI table|id_insecure
     id_gnmi_certs-->|has certs in GNMI table|id_secure
-    id_secure-->id_cert_valid
+    id_secure-->id_ntp
+    id_ntp-->|Synced|id_cert_valid
+    id_ntp-->|Not Synced|id_container_not_healthy
     id_cert_valid-->|Invalid|id_container_not_healthy
     id_cert_valid-->|Valid|id_endpoint1
     id_endpoint1-->|Reachable|id_acl1
