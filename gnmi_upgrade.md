@@ -9,7 +9,7 @@ sequenceDiagram
         participant Host system
     end
     kubelet->>Generic host patch container: Start rolling out generic host patch container
-    Generic host patch container->>Host system: Replace sonic-gnmi.yang and other necessary files
+    Generic host patch container->>Host system: Replace sonic-gnmi.yang and <br>generic config updater related files
     kubelet->>GNMI container: Start rolling out GNMI container
     ConfigUpdater->>Host system: Update new GNMI configuration to CONFIG_DB
     kubelet->>GNMI watchdog: Health Check Request
