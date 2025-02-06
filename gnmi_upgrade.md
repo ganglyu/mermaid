@@ -17,4 +17,9 @@ sequenceDiagram
     GNMI container-->>GNMI watchdog: GNMI container health status
     GNMI watchdog->>kubelet: Health Check Response, GNMI configuration does not match
     kubelet->>GNMI container: Restart GNMI service to adapt GNMI configuration
+    kubelet->>GNMI watchdog: Health Check Request
+    GNMI watchdog->>GNMI container: Check GNMI container health
+    GNMI container-->>GNMI watchdog: GNMI container health status
+    GNMI watchdog->>kubelet: Health Check Response, GNMI server is not running
+    kubelet->>GNMI container: Roll back previous GNMI container
 ```
