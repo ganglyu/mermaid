@@ -3,7 +3,7 @@ sequenceDiagram
     participant ConfigUpdater
     box SONiC
         participant kubelet
-        participant GCU watchdog
+        participant Generic host patch watchdog
         participant GNMI watchdog
         participant Generic host patch container
         participant GNMI container
@@ -20,9 +20,9 @@ sequenceDiagram
     GNMI watchdog->>kubelet: Health Check Response, GNMI configuration does not match
     kubelet->>GNMI container: Restart GNMI service
     ConfigUpdater-->Host system: Scenario 2, yang validation failed, rollback all management plane components
-    kubelet->>GCU watchdog: Health Check Request
-    GCU watchdog->>GCU watchdog: Run GCU with empty patch to perform yang validation
-    GCU watchdog->>kubelet: Health Check Response
+    kubelet->>Generic host patch watchdog: Health Check Request
+    Generic host patch watchdog->>Generic host patch watchdog: Run GCU with empty patch to perform yang validation
+    Generic host patch watchdog->>kubelet: Health Check Response
     kubelet->>Generic host patch container: If yang validation failed, notify the generic host patch container <br>to roll back sonic-yang-mgmt, sonic-yang-models, and the generic config updater
     kubelet->>GNMI container: Roll back previous GNMI container if yang validation failed
     ConfigUpdater-->Host system: Scenario 3, GNMI service failed, rollback all management plane components
