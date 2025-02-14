@@ -1,55 +1,43 @@
 ```mermaid
 flowchart TD
-    subgraph UserSpace
-        direction TB
-        subgraph Apps
-            A[teamd]
-            B[teamsynd]
-            C[bgpd]
-            D[fpmsynd]
-            E[lldpd]
-            F[lldpsynd]
-            G[dhcrelay]
-            H[Other Apps]
+    subgraph UserSpace[User Space]
+        subgraph gnmi container
+            gnmi[GNMI/GNOI server]
         end
-        subgraph Orch
-            I[Orchangent]
-            J[SWSS]
+        subgraph sonic host services
+            hostServices[sonic host server<br>calmgrd<br>hostcfgd]
         end
-        subgraph RedisDB
-            K[Redis]
+        subgraph other services
+            program
         end
-        subgraph SyncComp
-            L[Synd]
-            M[SDK]
-            N[SAI]
+        subgraph swss container
+            Orchangent[Orchangent]
         end
-        subgraph CLITools
-            O[CLI]
-            P[Sonic - cfggen]
+        subgraph database container
+            Redis[Redis]
         end
-        A --> K
-        B --> K
-        C --> K
-        D --> K
-        E --> K
-        F --> K
-        G --> K
-        H --> K
-        I --> K
-        J --> K
-        K --> L
-        K --> M
-        K --> N
-        L --> N
-        M --> N
-        K --> O
-        K --> P
+        subgraph synd container
+            syncd[syncd<br>SDK<br>SAI]
+        end
+        subgraph CLI
+            GCU[generic config updater<br>sonic yang mgmt<br>sonic yang models]
+        end
+        gnmi <--> Redis
+        gnmi --> |DBUS|hostServices
+        program <--> Redis
+        GCU <--> Redis
+        Redis <--> Orchangent
+        Redis <--> syncd
     end
-    subgraph KernelSpace
-        Q[Linux]
-        R[Switch Abstraction Interface]
-        Q --> R
+    subgraph KernelSpace[Kernel Space]
+        KernelA[ ]
+        Linux[Linux]
+        KernelB[ ]
+        SAI[Switch Abstraction Interface]
+        KernelC[ ]
+        style KernelA visibility:hidden
+        style KernelB visibility:hidden
+        style KernelC visibility:hidden
     end
     UserSpace --> KernelSpace
 ```
