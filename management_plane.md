@@ -11,7 +11,7 @@ flowchart TD
             program
         end
         subgraph swss container
-            Orchangent[Orchangent]
+            orchagent[Orchagent]
         end
         subgraph database container
             Redis[Redis]
@@ -26,7 +26,7 @@ flowchart TD
         gnmi --> |DBUS|hostServices
         program <--> Redis
         GCU <--> Redis
-        Redis <--> Orchangent
+        Redis <--> orchagent
         Redis <--> syncd
     end
     subgraph KernelSpace[Kernel Space]
