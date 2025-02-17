@@ -10,8 +10,8 @@ graph LR
     end
     Start(Start):::process --> RolloutGeneric:::process
     RolloutGeneric --> WatchdogGCU:::decision
-    WatchdogGCU --> |Yang validation passed|WatchdogGNMI:::decision
-    WatchdogGCU --> |Yang validation failed|RollbackGeneric:::process
+    WatchdogGCU --> |passed|WatchdogGNMI:::decision
+    WatchdogGCU --> |failed|RollbackGeneric:::process
     WatchdogGNMI --> |GNMI/GNOI service<br>works well|End[End]:::process
     WatchdogGNMI --> |GNMI/GNOI service<br>does not work|RollbackGeneric:::process
     RollbackGeneric --> End(End):::process
