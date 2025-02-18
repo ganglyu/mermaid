@@ -5,8 +5,7 @@ flowchart LR
     Start(Start):::process --> UpdateDB[Update<br>CONFIG_DB]:::process
     UpdateDB --> UpdateService{Need to restart service?}:::decision
     UpdateService --> |No|End(End):::process
-    UpdateService --> |Yes|Restart[Restart service]:::process
-    Restart --> InContainer{Is GCU<br>within a container?}:::decision
+    UpdateService --> |Yes|InContainer{Is GCU<br>within a container?}:::decision
     InContainer --> |On the host|Systemctl[Use systemctl<br>to restart]:::process
     InContainer --> |Within a container|Nsenter[Use nsenter<br>to restart]:::process
     Systemctl --> End
