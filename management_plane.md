@@ -7,12 +7,9 @@ flowchart TD
         end
         style gnmiContainer stroke:#FF0000;
         subgraph sonic host services
-            hostServices[sonic host server<br>calmgrd<br>hostcfgd]
+            hostServices[sonic host server<br>calmgrd<br>hostcfgd]:::management
         end
-        subgraph snmp container
-            snmp-subagent
-        end
-        subgraph other service
+        subgraph other container
             program
         end
         subgraph swss container
@@ -29,7 +26,6 @@ flowchart TD
         end
         gnmi <--> Redis
         gnmi --> |DBUS|hostServices
-        snmp-subagent <--> Redis
         program <--> Redis
         GCU <--> Redis
         Redis <--> orchagent
@@ -37,21 +33,15 @@ flowchart TD
     end
     subgraph KernelSpace[Kernel Space]
         KernelA[ ]
+        Linux[Linux]
         KernelB[ ]
         KernelC[ ]
-        Linux[Linux]
-        KernelD[ ]
         SAI[Switch Abstraction Interface]
-        KernelE[ ]
-        KernelF[ ]
-        KernelG[ ]
+        KernelD[ ]
         style KernelA visibility:hidden
         style KernelB visibility:hidden
         style KernelC visibility:hidden
         style KernelD visibility:hidden
-        style KernelE visibility:hidden
-        style KernelF visibility:hidden
-        style KernelG visibility:hidden
     end
     UserSpace --> KernelSpace
 ```
