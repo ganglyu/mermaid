@@ -22,7 +22,7 @@ flowchart TD
             syncd[syncd<br>SDK<br>SAI]
         end
         subgraph CLI
-            GCU[generic config updater<br>sonic yang mgmt<br>sonic yang models]:::management
+            GCU[generic config updater<br>sonic yang mgmt<br>sonic yang models]
         end
         gnmi <--> Redis
         gnmi --> |DBUS|hostServices
