@@ -6,12 +6,12 @@ graph LR
     RolloutGeneric[Roll out patch container v2<br><div style="margin-left:0px;border:2px dashed black;padding:0px;text-align:left;">Upgrade sonic host service</div>Roll out gnmi container v1]
     RollbackGeneric[Roll back to patch container v1<br><div style="margin-left:0px;border:2px dashed black;padding:0px;text-align:left;">Revert sonic host service</div>Roll back to original gnmi container]
     subgraph Watchdog
-        WatchdogGNMI{Check GNMI/GNOI service}
+        WatchdogGNMI{Check GNMI service<br>Check SONiC host service}
     end
     Start(Start) --> RolloutInit:::process
     RolloutInit --> RolloutGeneric:::process
     RolloutGeneric --> WatchdogGNMI:::decision
-    WatchdogGNMI --> |GNMI/GNOI service<br>works well|End(End)
-    WatchdogGNMI --> |GNMI/GNOI service<br>does not work|RollbackGeneric:::process
+    WatchdogGNMI --> |Service works well|End(End)
+    WatchdogGNMI --> |Service does not work|RollbackGeneric:::process
     RollbackGeneric --> End
 ```
