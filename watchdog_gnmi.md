@@ -2,14 +2,18 @@
 sequenceDiagram
     box SONiC
         participant kubelet
-        participant GNMI watchdog
+        participant Watchdog
         participant Generic host patch container
         participant GNMI container
+        participant SONiC host service
     end
-    kubelet->>GNMI watchdog: Health Check Request
-    GNMI watchdog->>GNMI container: Check GNMI container health
-    GNMI container->>GNMI watchdog: GNMI container health status
-    GNMI watchdog->>kubelet: Health Check Response
-    kubelet->>Generic host patch container: if GNMI is not running, notify the generic host patch container <br>to roll back sonic-yang-mgmt, sonic-yang-models, and the generic config updater
-    kubelet->>GNMI container: Roll back previous GNMI container if GNMI is not running
+    kubelet->>Watchdog: Health Check Request
+    Watchdog->>SONiC host service: Check SONiC host service health
+    SONiC host service->>Watchdog: SONiC host service health status
+    Watchdog->>GNMI container: Check GNMI service health
+    GNMI container->>Watchdog: GNMI service health status
+    Watchdog->>kubelet: Health Check Response
+    kubelet->>Generic host patch container: If service is not running, roll back generic host patch container
+    Generic host patch container ->> SONiC host service: Roll back SONiC host service
+    kubelet->>GNMI container: If service is not running, roll back GNMI container
 ```
