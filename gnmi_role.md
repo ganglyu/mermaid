@@ -13,7 +13,7 @@ flowchart
     id_request_not_auth(GNMI request is rejected)
     style id_request_not_auth fill:#F88
 
-    id_request-->|Start|id_cert_auth
+    id_request-->id_cert_auth
     id_cert_auth-->|Disabled|id_request_auth
     id_cert_auth-->|Enabled|id_get_role_list
     id_get_role_list-->id_gnmi_access
