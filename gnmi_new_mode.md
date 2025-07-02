@@ -7,7 +7,7 @@ sequenceDiagram
     end
     client->>GNMI server on GNMI container: GNMI set request
     GNMI server on GNMI container->>GNMI server on GNMI container: Run GCU commands
-    GNMI server on GNMI container->>SONiC host: Invoke SONiC host service with DBUS
+    GNMI server on GNMI container->>SONiC host: Invoke systemctl command with nsenter
     SONiC host->>SONiC host: Restart service if needed
     SONiC host-->>GNMI server on GNMI container: result
     GNMI server on GNMI container->>client: GNMI set response
